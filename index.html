@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyDocumentaries</title>
+	<link rel="stylesheet" href="style.css">
+
+	<!-- My Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Single+Day&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+	<h1>MyDocumentaries</h1>
+</header>
+
+<div class="container">
+	<!-- ADD DATA -->
+	<form action="" id="form">
+		<h3>Add Data</h3>
+
+		<label for="title">Title
+			<input type="text" id="title" name="title" placeholder="The title of documentary">
+		</label>
+		<label for="channel">Channel
+			<input type="text" id="channel" name="channel" placeholder="Documentary's channel">
+		</label>
+		<label for="duration">Duration
+			<input type="text" id="formHours" class="formDuration" maxlength="2"> h
+			<input type="text" id="formMinutes" class="formDuration" maxlength="2"> m
+			<input type="text" id="formSeconds" class="formDuration" maxlength="2"> s
+		</label>
+		<div class="radioButton">
+			<label for="type">
+				<br>
+				<input type="radio" id="wantWatchButton" name="type"> Want to watch
+				<input type="radio" id="finishedButton" name="type"> Finished
+			</label>
+		</div>
+		<div class="ratingContainer">
+			<label for="rating">Rating
+				<input type="text" id="rating" maxlength="2">
+			</label>
+		</div>
+		<input type="submit" id="submitButton" value="Add Data">
+	</form>
+
+	<!-- FINISHED CONTAINER -->
+	<div class="finished">
+		<h2>Documentaries Finished</h2>
+
+		<div class="containerAllDocumentary">
+			<!-- <div class="perDocumentary">
+				<p class="per-number">1</p>
+				<div class="documentaryInfo">
+					<p class="per-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, tempora!</p>
+					<p class="per-channel">Lorem ipsum dolor</p>
+					<p class="per-duration">01:20:20</p>
+				</div>
+				<div class="documentaryRating">
+					<img src="images/star.png" alt="">
+					<p class="per-rating">10</p>
+				</div> -->
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

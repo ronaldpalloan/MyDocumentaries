@@ -1,0 +1,172 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/*border: 1px solid red;*/
+}
+
+body {
+	background-image: url(images/bg.jpg);
+	font-family: arial;
+}
+
+header {
+	text-align: center;
+	padding: 10px;
+	background-color: #F1E4C3;
+	font-family: 'Single Day', cursive;
+	font-size: 1.2rem;
+}
+
+.container {
+	display: flex;
+}
+
+/*FORM*/
+form {
+	max-width: 350px;
+	background-color: white;
+	padding: 15px;
+	margin-left: 20px;
+	margin-top: 20px;
+	border-radius: 20px;
+}
+
+form h3	{
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+form input {
+	width: 100%;
+	margin-bottom: 13px;
+	padding: 7px;
+	border-radius: 5px;
+}
+
+.formDuration {
+	width: 15%;
+	text-align: center;
+	padding: 5px;
+}
+
+input[type="radio"] {
+	width: inherit;
+	cursor: pointer;
+	display: inline;
+	margin-left: 10px;
+}
+
+.radioButton {
+	display: flex;
+	margin-top: -15px;
+	justify-content: center;
+}
+
+input#rating {
+	width: 30px;
+	padding: 5px;
+	text-align: center;
+}
+
+.ratingContainer {
+	text-align: center;
+	display: none;
+}
+
+input[type="submit"] {
+	background-color: lightgreen;
+	border: 1px solid black;
+	cursor: pointer;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+/*DOCUMENTARY FINISHED CONTAINER*/
+.finished {
+	max-width: 550px;
+	background-color: white;
+	margin-top: 20px;
+	margin-left: 20px;
+	border-radius: 20px;
+	padding: 15px;
+}
+
+.finished h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.perDocumentary {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px solid black;
+	padding-top: 5px;
+	padding-bottom: 5px; 
+}
+
+.per-number {
+	flex: .7;
+	font-size: 2rem;
+	margin: auto;
+	text-align: center;
+}
+
+.documentaryInfo {
+	flex: 5;
+	padding: 5px;
+}
+
+.documentaryRating {
+	flex: 1.2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.documentaryRating img {
+	width: 30px;
+	margin-right: 2px;
+}
+
+.per-rating {
+	display: block;
+	font-size: 2rem;
+}
+
+.per-title {
+	font-weight: bold;
+	font-style: italic;
+	text-align: justify;
+}
+
+.per-channel {
+	font-size: .9rem;
+}
+
+.per-duration {
+	font-size: .9rem;
+	color: #acacac;
+}
+
+
+/*RESPONSIVE BREAKPOINT*/
+
+@media (max-width: 576px) {
+	.container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	form {
+		margin: 0;
+		margin-top: 20px;
+		max-width: 90%;
+	}
+
+	.finished {
+		width: 90%;
+		margin: 0;
+		margin-top: 20px;
+	}
+}
