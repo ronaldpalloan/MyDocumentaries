@@ -13,6 +13,9 @@ const submitButton = document.getElementById('submitButton');
 const containerAllDocumentary = document.querySelector('.containerAllDocumentary');
 const wantWatchContainer = document.querySelector('.want-watch-container');
 
+window.addEventListener('DOMContentLoaded', function() {
+	showData();
+})
 
 // DEFAULT FORMDATE KE TANGGAL HARI INI
 formDate.value = new Date().toISOString().slice(0, 10);
@@ -104,23 +107,25 @@ form.addEventListener('submit', function(e) {
 		newWantWatch.innerHTML = perWantWatch;
 		wantWatchContainer.insertBefore(newWantWatch, wantWatchContainer.firstChild);
 
-		// saveData();
+		saveData();
 	}
 
 	form.reset();
 	formRatingContainer.style.display = 'none';
 	formDate.value = new Date().toISOString().slice(0, 10);
-})
+});
 
 function saveData() {
 	localStorage.setItem('mydocumentaries', containerAllDocumentary.innerHTML);
+	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
 }
 
 function showData() {
 	containerAllDocumentary.innerHTML = localStorage.getItem('mydocumentaries');
+	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
 }
 
-showData();
+
 
 
 
