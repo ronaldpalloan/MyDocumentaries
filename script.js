@@ -115,15 +115,15 @@ form.addEventListener('submit', function(e) {
 	formDate.value = new Date().toISOString().slice(0, 10);
 });
 
-function saveData() {
-	localStorage.setItem('mydocumentaries', containerAllDocumentary.innerHTML);
-	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
-}
+// function saveData() {
+// 	localStorage.setItem('mydocumentaries', containerAllDocumentary.innerHTML);
+// 	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
+// }
 
-function showData() {
-	containerAllDocumentary.innerHTML = localStorage.getItem('mydocumentaries');
-	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
-}
+// function showData() {
+// 	containerAllDocumentary.innerHTML = localStorage.getItem('mydocumentaries');
+// 	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
+// }
 
 
 

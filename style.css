@@ -20,6 +20,7 @@ header {
 
 .container {
 	display: flex;
+	align-items: flex-start;
 }
 
 /*FORM*/
@@ -101,6 +102,10 @@ input[type="submit"] {
 .finished h2 {
 	text-align: center;
 	margin-bottom: 20px;
+}
+
+.containerAllDocumentary div:last-child {
+	border-bottom: none;
 }
 
 .perDocumentary {
@@ -198,6 +203,10 @@ aside {
 	align-self: flex-start;
 	font-size: .8rem;
 
+}
+
+.want-watch-container div:last-child {
+	border-bottom: none;
 }
 
 aside h2 {
