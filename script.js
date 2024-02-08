@@ -13,9 +13,10 @@ const submitButton = document.getElementById('submitButton');
 const containerAllDocumentary = document.querySelector('.containerAllDocumentary');
 const wantWatchContainer = document.querySelector('.want-watch-container');
 
+// MENAMPILKAN DATA DARI STORAGE
 window.addEventListener('DOMContentLoaded', function() {
 	showData();
-})
+});
 
 // DEFAULT FORMDATE KE TANGGAL HARI INI
 formDate.value = new Date().toISOString().slice(0, 10);
@@ -200,7 +201,15 @@ window.addEventListener('click', function(e) {
 	if (e.target.classList.contains('remove-finished-button')) {
 		e.target.parentElement.parentElement.remove();
 
-		// saveData();
+		// Agar Nomor Tetap Urut
+		const perNumber = Array.from(document.querySelectorAll('.per-number'));
+		console.log(perNumber.length);
+		
+		for (let i = 0; i < perNumber.length; i++) {
+			perNumber[i].innerText = perNumber.length - i;
+		}
+
+		saveData();
 	}
 })
 
@@ -210,15 +219,15 @@ window.addEventListener('click', function(e) {
 
 
 
-function saveData() {
-	localStorage.setItem('latihanDoc', containerAllDocumentary.innerHTML);
-	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
-}
+// function saveData() {
+// 	localStorage.setItem('latihanDoc', containerAllDocumentary.innerHTML);
+// 	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
+// }
 
-function showData() {
-	containerAllDocumentary.innerHTML = localStorage.getItem('latihanDoc');
-	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
-}
+// function showData() {
+// 	containerAllDocumentary.innerHTML = localStorage.getItem('latihanDoc');
+// 	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
+// }
 
 
 

@@ -5,8 +5,6 @@
 	/*border: 1px solid red;*/
 }
 
-/*tes*/
-
 body {
 	background-image: url(images/bg.jpg);
 	font-family: arial;
@@ -189,6 +187,7 @@ input[type="submit"] {
 	font-weight: bold;
 	font-style: italic;
 	text-align: justify;
+	word-break: break-all;
 }
 
 .per-channel {
