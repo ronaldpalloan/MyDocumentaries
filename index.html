@@ -57,21 +57,71 @@
 		<h2>Documentaries Finished</h2>
 
 		<div class="containerAllDocumentary">
+			<!-- Per Documentary -->
 			<!-- <div class="perDocumentary">
-				<p class="per-number">1</p>
+				<p class="per-number">2</p>
 				<div class="documentaryInfo">
-					<p class="per-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, tempora!</p>
-					<p class="per-channel">Lorem ipsum dolor</p>
-					<p class="per-duration">01:20:20</p>
+					<p class="per-title">Aviation Industry 4.0</p>
+					<p class="per-channel">Green Dot Aviation</p>
+					<p class="per-duration">00:50:20</p>
 				</div>
 				<div class="rating-container-finished">
 					<div class="documentaryRating">
 						<img src="images/star.png" alt="">
-						<p class="per-rating">10</p>
+						<p class="per-rating">9</p>
 					</div>
-					<p class="per-date">(2024-01-24)</p>
+					<p class="per-date">(2024-01-27)</p>
+				</div>
+				<div class="edit-finished">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left-circle edit-finished-button" viewBox="0 0 16 16">
+					  <title id="edit-title">Edit</title>
+					  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-5.904-2.854a.5.5 0 1 1 .707.708L6.707 9.95h2.768a.5.5 0 1 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.475a.5.5 0 1 1 1 0v2.768z"/>
+					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-finished-button" viewBox="0 0 16 16">
+					  <title id="delete-title">Remove</title>
+					  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+					  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+					</svg>
 				</div>
 			</div> -->
+			<!-- Akhir Per Documentary -->
+		</div>
+		<!-- Edit Documentary -->
+		<div class="form-edit-container">
+			<div class="form-edit-finished">
+				<form action="" id="formEditFinished">
+					<h3>Edit Data</h3>
+
+					<label for="title">Title
+						<input type="text" id="editFinishedTitle" name="title" placeholder="The title of documentary">
+					</label>
+					<label for="channel">Channel
+						<input type="text" id="editFinishedChannel" name="channel" placeholder="Documentary's channel">
+					</label>
+					<label for="duration">Duration
+						<input type="text" id="editFinishedHours" class="formDuration" maxlength="2"> h
+						<input type="text" id="editFinishedMinutes" class="formDuration" maxlength="2"> m
+						<input type="text" id="editFinishedSeconds" class="formDuration" maxlength="2"> s
+					</label>
+					<div class="ratingContainer">
+						<label for="date">Date Finished
+							<br><input type="date" id="editFinishedDate" name="date">
+						</label>
+						<br>
+						<label for="rating">Rating
+							<input type="text" id="editFinishedRating" name="rating" maxlength="2">
+						</label>
+					</div>
+					<div class="edit-finished-button-container">
+						<button id="cancelEditButton" type="submit">Cancel</button>
+						<button id="submitEditButton" type="submit">Edit</button>
+					</div>
+				</form>
+			</div>
+			<!-- Tombol Close -->
+			<svg id="closeEditFinished" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+			  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+			</svg>
 		</div>
 	</div>
 
@@ -80,22 +130,24 @@
 		<h2>Want to Watch</h2>
 
 		<div class="want-watch-container">
-			<!-- <div class="per-wantwatch">
+			<div class="per-wantwatch">
 				<p class="per-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, tempora!</p>
 				<p class="per-channel">Lorem ipsum dolor</p>
 				<p class="per-duration">01:20:20</p>
 				<span class="watch-to-finished">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+						<title id="finished-title">Finished</title>
 					  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 					  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
 					</svg>
 
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+						<title id="delete-title">Remove</title>
 					  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 					  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
 					</svg>
 				</span>
-			</div> -->
+			</div>
 		</div>
 
 	</aside>
