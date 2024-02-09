@@ -135,10 +135,11 @@ input[type="submit"] {
 .documentaryInfo {
 	flex: 5;
 	padding-left: 5px;
-	padding-right: 10px;
+	padding-right: 20px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
+	gap: 3px;
 }
 
 .rating-container-finished {
@@ -189,7 +190,7 @@ input[type="submit"] {
 	font-weight: bold;
 	font-style: italic;
 	text-align: justify;
-	word-break: break-all;
+	/*word-break: break-all;*/
 }
 
 .per-channel {

@@ -119,7 +119,7 @@ form.addEventListener('submit', function(e) {
 		newWantWatch.innerHTML = perWantWatch;
 		wantWatchContainer.insertBefore(newWantWatch, wantWatchContainer.firstChild);
 
-		saveData();
+		// saveData();
 	}
 
 	form.reset();
@@ -167,7 +167,7 @@ window.addEventListener('click', function(e) {
 		submitEditButton.addEventListener('click', function(e) {
 			parentFormEdit.querySelector('.per-title').innerText = editFinishedTitle.value;
 			parentFormEdit.querySelector('.per-channel').innerText = editFinishedChannel.value;
-			parentFormEdit.querySelector('.per-duration').innerText = `(${editFinishedHours.value}:${editFinishedMinutes.value}:${editFinishedSeconds.value})`;
+			parentFormEdit.querySelector('.per-duration').innerText = `${editFinishedHours.value}:${editFinishedMinutes.value}:${editFinishedSeconds.value}`;
 			parentFormEdit.querySelector('.per-date').innerText = `(${editFinishedDate.value})`;
 			parentFormEdit.querySelector('.per-rating').innerText = editFinishedRating.value;
 
@@ -219,15 +219,15 @@ window.addEventListener('click', function(e) {
 
 
 
-// function saveData() {
-// 	localStorage.setItem('latihanDoc', containerAllDocumentary.innerHTML);
-// 	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
-// }
+function saveData() {
+	localStorage.setItem('latihanDoc', containerAllDocumentary.innerHTML);
+	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
+}
 
-// function showData() {
-// 	containerAllDocumentary.innerHTML = localStorage.getItem('latihanDoc');
-// 	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
-// }
+function showData() {
+	containerAllDocumentary.innerHTML = localStorage.getItem('latihanDoc');
+	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
+}
 
 
 
