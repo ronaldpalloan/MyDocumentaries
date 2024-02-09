@@ -246,6 +246,7 @@ input[type="submit"] {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
+	width: 400px;
 }
 
 .form-edit-finished .ratingContainer {
@@ -333,6 +334,43 @@ aside svg:hover {
 	display: flex;
 }
 
+.form-finish-wantwatch .ratingContainer {
+	display: block;
+}
+
+.form-finish-wantwatch-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0,0,0,.7);
+	z-index: 49;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+#closeFinishWantwatch {
+	color: white;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+
+#dateFinishWantwatch {
+	width: 50%;
+	text-align: center;
+}
+
+#ratingFinishWantwatch {
+	width: 40px;
+	text-align: center;
+}
+
+
 /*RESPONSIVE BREAKPOINT*/
 
 @media (max-width: 576px) {
@@ -361,7 +399,8 @@ aside svg:hover {
 		width: 97%;
 	}
 
-	.form-edit-container {
+	.form-edit-container,
+	.form-finish-wantwatch-container {
 		padding-right: 18px;
 	}	
 

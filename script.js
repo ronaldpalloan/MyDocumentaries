@@ -161,6 +161,28 @@ window.addEventListener('click', function(e) {
 		editFinishedDate.value = formPerDatePure;
 		editFinishedRating.value = formPerRating;
 
+		// Validasi Input Duration Edit Finished
+		const editFormTime = [editFinishedHours, editFinishedMinutes, editFinishedSeconds];
+
+		for (i = 0; i < editFormTime.length; i++) {
+			let item = editFormTime[i];
+
+			item.addEventListener('input', function() {
+				item.value = item.value.replace(/[^0-9]/g, '');
+			});
+		};
+
+		// Validasi Input Rating Edit Finished
+		editFinishedRating.addEventListener('input', function() {
+			editFinishedRating.value = editFinishedRating.value.replace(/[^0-9]/g, '');
+			parsedRating = parseInt(editFinishedRating.value, 10);
+			if (isNaN(parsedRating)) {
+				editFinishedRating.value = '';
+			} else {
+				editFinishedRating.value = Math.min(Math.max(parsedRating, 1), 10);
+			}
+		})
+
 		// Tombil Submit Edit
 		const submitEditButton = document.getElementById('submitEditButton');
 
@@ -203,7 +225,6 @@ window.addEventListener('click', function(e) {
 
 		// Agar Nomor Tetap Urut
 		const perNumber = Array.from(document.querySelectorAll('.per-number'));
-		console.log(perNumber.length);
 		
 		for (let i = 0; i < perNumber.length; i++) {
 			perNumber[i].innerText = perNumber.length - i;
@@ -213,6 +234,104 @@ window.addEventListener('click', function(e) {
 	}
 })
 
+// EDIT WANT WATCH DATA
+// Tombol Finished WWD
+const finishWantwatchContainer = document.querySelector('.form-finish-wantwatch-container');
+
+window.addEventListener('click', function(e) {
+	// Tampilkan
+	if (e.target.classList.contains('finished-wantwatch-button')) {
+		finishWantwatchContainer.style.display = 'flex';
+	}
+	// Isi Data sesuai
+	const titleFinishWantwatch = document.getElementById('titleFinishWantwatch');
+	const channelFinishWantwatch = document.getElementById('channelFinishWantwatch');
+	const durationFinishWantwatch = document.getElementById('durationFinishWantwatch');
+	const dateFinishWantwatch = document.getElementById('dateFinishWantwatch');
+	const ratingFinishWantwatch = document.getElementById('ratingFinishWantwatch');
+	const parentWantwatch = e.target.parentElement.parentElement;
+
+	valueTitleWantwatch = parentWantwatch.querySelector('.per-title').innerText;
+	valueChannelWantwatch = parentWantwatch.querySelector('.per-channel').innerText;
+	valueDurationWantwatch = parentWantwatch.querySelector('.per-duration').innerText;
+
+	titleFinishWantwatch.value = valueTitleWantwatch;
+	channelFinishWantwatch.value = valueChannelWantwatch;
+	durationFinishWantwatch.value = valueDurationWantwatch;
+	dateFinishWantwatch.value = new Date().toISOString().slice(0, 10);
+
+	// Validasi Input Rating
+	ratingFinishWantwatch.addEventListener('input', function() {
+		ratingFinishWantwatch.value = ratingFinishWantwatch.value.replace(/[^0-9]/g, '');
+		parsedRating = parseInt(ratingFinishWantwatch.value, 10);
+		if (isNaN(parsedRating)) {
+			ratingFinishWantwatch.value = '';
+		} else {
+			ratingFinishWantwatch.value = Math.min(Math.max(parsedRating, 1), 10);
+		}
+	});
+
+	// Tekan Tombol Finish
+	const finishWantwatchButton = document.getElementById('finishWantwatchButton');
+
+	finishWantwatchButton.addEventListener('click', function(e) {
+		const newDataFinished = document.createElement('div');
+		newDataFinished.classList.add('perDocumentary');
+		const documentaryOrder = containerAllDocumentary.childElementCount;
+
+		const perDocumentary = `
+			<p class="per-number">${documentaryOrder + 1}</p>
+			<div class="documentaryInfo">
+				<p class="per-title">${titleFinishWantwatch.value}</p>
+				<p class="per-channel">${channelFinishWantwatch.value}</p>
+				<p class="per-duration">${durationFinishWantwatch.value}</p>
+			</div>
+			<div class="rating-container-finished">
+				<div class="documentaryRating">
+					<img src="images/star.png" alt="">
+					<p class="per-rating">${ratingFinishWantwatch.value}</p>
+				</div>
+				<p class="per-date">(${dateFinishWantwatch.value})</p>
+			</div>
+			<div class="edit-finished">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left-circle edit-finished-button" viewBox="0 0 16 16">
+				  <title id="edit-title">Edit</title>
+				  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-5.904-2.854a.5.5 0 1 1 .707.708L6.707 9.95h2.768a.5.5 0 1 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.475a.5.5 0 1 1 1 0v2.768z"/>
+				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-finished-button" viewBox="0 0 16 16">
+				  <title id="delete-title">Remove</title>
+				  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+				  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+				</svg>
+			</div>`;
+
+		newDataFinished.innerHTML = perDocumentary;
+		containerAllDocumentary.insertBefore(newDataFinished, containerAllDocumentary.firstChild);
+
+		finishWantwatchContainer.style.display = 'none';
+
+
+		e.preventDefault();
+		// saveData();
+	})
+	parentWantwatch.remove();
+})
+
+
+// Tombol Close pada Finish Wantwatch
+window.addEventListener('click', function(e) {
+	if (e.target.id === 'closeFinishWantwatch') {
+		finishWantwatchContainer.style.display = 'none';
+	}
+})
+
+// Tombol Cancel pada Finish Wantwatch
+const cancelFinishWantwatchButton = document.getElementById('cancelFinishWantwatchButton');
+
+cancelFinishWantwatchButton.addEventListener('click', function(e) {
+	finishWantwatchContainer.style.display = 'none';
+	e.preventDefault();
+})
 
 
 
@@ -226,7 +345,7 @@ function saveData() {
 
 function showData() {
 	containerAllDocumentary.innerHTML = localStorage.getItem('latihanDoc');
-	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
+	// wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
 }
 
 
