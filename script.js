@@ -12,6 +12,15 @@ const formRating = document.getElementById('rating');
 const submitButton = document.getElementById('submitButton');
 const containerAllDocumentary = document.querySelector('.containerAllDocumentary');
 const wantWatchContainer = document.querySelector('.want-watch-container');
+// Stats
+let finishedStats = document.querySelector('.finished-stats');
+let watchlistStats = document.querySelector('.watchlist-stats');
+let totalHoursStats = document.querySelector('.total-hours-stats');
+let highestRatingStats = document.querySelector('.highest-rating-stats');
+let totalHighestRating = document.querySelector('.total-highest-rating');
+let lowestRatingStats = document.querySelector('.lowest-rating-stats');
+let totalLowestRating = document.querySelector('.total-lowest-rating');
+let averageRatingStats = document.querySelector('.average-rating-stats');
 
 // MENAMPILKAN DATA DARI STORAGE
 window.addEventListener('DOMContentLoaded', function() {
@@ -95,6 +104,7 @@ form.addEventListener('submit', function(e) {
 		newDataFinished.innerHTML = perDocumentary;
 		containerAllDocumentary.insertBefore(newDataFinished, containerAllDocumentary.firstChild);
 
+		updateStats();
 		saveData();
 	} else if (wantWatchButton.checked) {
 		const newWantWatch = document.createElement('div');
@@ -121,6 +131,7 @@ form.addEventListener('submit', function(e) {
 		newWantWatch.innerHTML = perWantWatch;
 		wantWatchContainer.insertBefore(newWantWatch, wantWatchContainer.firstChild);
 
+		updateStats();
 		saveData();
 	}
 
@@ -198,6 +209,7 @@ window.addEventListener('click', function(e) {
 			formEditContainer.classList.remove('display-flex');
 			e.preventDefault();
 
+			updateStats();
 			saveData();
 		})
 	}
@@ -232,6 +244,7 @@ window.addEventListener('click', function(e) {
 			perNumber[i].innerText = perNumber.length - i;
 		}
 
+		updateStats();
 		saveData();
 	}
 })
@@ -273,6 +286,8 @@ window.addEventListener('click', function(e) {
 		});
 	} else if (e.target.classList.contains('remove-wantwatch-button')) {
 		e.target.parentElement.parentElement.remove();
+
+		updateStats();
 		saveData();
 	}
 });
@@ -327,6 +342,7 @@ finishWantwatchButton.addEventListener('click', function(e) {
 	// Agar Rating Reset setelah finish
 	ratingFinishWantwatch.value = '';
 
+	updateStats();
 	e.preventDefault();
 	saveData();
 });
@@ -347,10 +363,76 @@ cancelFinishWantwatchButton.addEventListener('click', function(e) {
 	e.preventDefault();
 })
 
+// Statistics
+window.addEventListener('DOMContentLoaded', function() {
+	updateStats();
+})
 
 
 
 
+// Funnctions
+function updateStats() {
+	// Total Finished dan Watchlist
+	finishedStats.innerText = containerAllDocumentary.childElementCount;
+	watchlistStats.innerText = wantWatchContainer.childElementCount;
+
+	// Total Hours
+	const durationFinished = Array.from(containerAllDocumentary.querySelectorAll('.per-duration'));
+	let totalSecondStats = 0;
+
+	// Jumlahkan total detik setiap documentary finish
+	for (everyDuration of durationFinished) {
+		let [hStats, mStats, sStats] = everyDuration.innerText.split(':');
+		hStats = parseInt(hStats, 10);
+		mStats = parseInt(mStats, 10);
+		sStats = parseInt(sStats, 10);
+
+		const totalhmsStats = (hStats * 3600) + (mStats * 60) + sStats;
+		totalSecondStats += totalhmsStats;
+	}
+
+	// Convert total detik ke jam menit detik
+	let hoursStats = Math.floor(totalSecondStats/3600);
+	totalSecondStats -= 3600 * hoursStats;
+	let minutesStats = Math.floor(totalSecondStats/60);
+	totalSecondStats -= 60 * minutesStats;
+	let secondsStats = totalSecondStats;
+
+	if (secondsStats < 10) {
+		secondsStats = `0${secondsStats}`;
+	} else if (minutesStats < 10) {
+		minutesStats = `0${minutesStats}`;
+	} else if (hoursStats < 10) {
+		hoursStats = `0${hoursStats}`;
+	}
+
+	totalHoursStats.innerText = `${hoursStats}h ${minutesStats}m ${secondsStats}s`;
+
+	// Rating Stats
+	let allRating = Array.from(containerAllDocumentary.querySelectorAll('.per-rating'));
+	let allRatingValue = allRating.map(a => a.innerText)
+		.map(a => parseInt(a, 10));
+
+	// Highest Rating
+	let maxValue = Math.max(...allRatingValue);
+	let maxRatingValueArray = allRatingValue.filter(a => a === maxValue);
+
+	// Lowest Rating
+	let minValue = Math.min(...allRatingValue);
+	let minRatingValueArray = allRatingValue.filter(a => a === minValue);
+
+	// Average Rating
+	let totalRating = allRatingValue.reduce((acc, curr) => acc + curr);
+	let averageRating = (totalRating / allRatingValue.length).toFixed(2);
+	
+	// Tampilkan
+	highestRatingStats.innerText = maxValue;
+	totalHighestRating.innerText = `(${maxRatingValueArray.length})`
+	lowestRatingStats.innerText = minValue;
+	totalLowestRating.innerText = `(${minRatingValueArray.length})`;
+	averageRatingStats.innerText = averageRating;
+}
 
 function saveData() {
 	localStorage.setItem('documentary-finish-data', containerAllDocumentary.innerHTML);

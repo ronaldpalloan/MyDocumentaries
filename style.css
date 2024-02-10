@@ -24,6 +24,7 @@ header {
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
+	padding: 20px;
 }
 
 /*FORM*/
@@ -31,7 +32,6 @@ form {
 	max-width: 350px;
 	background-color: white;
 	padding: 15px;
-	margin-left: 20px;
 	margin-top: 20px;
 	border-radius: 20px;
 	align-self: flex-start;
@@ -87,20 +87,28 @@ input#rating {
 
 input[type="submit"] {
 	background-color: lightgreen;
-	border: 1px solid black;
+	border: 1px solid rgba(0,0,0,.2);
 	cursor: pointer;
+	font-size: .9rem;
 	font-weight: bold;
 	margin-top: 5px;
 }
 
+input[type="submit"]:hover {
+	opacity: .8;
+	color: rgba(0,0,0,.8);
+}
+
 /*DOCUMENTARY FINISHED CONTAINER*/
 .finished {
-	width: 550px;
+	width: 600px;
 	background-color: white;
 	margin-top: 20px;
 	margin-left: 20px;
 	border-radius: 20px;
 	padding: 15px;
+	max-height: 100vh;
+	overflow: auto;
 }
 
 .finished h2 {
@@ -231,8 +239,8 @@ input[type="submit"] {
 .form-edit-container svg {
 	color: white;
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 15px;
+	right: 30px;
 	cursor: pointer;
 }
 
@@ -254,16 +262,17 @@ input[type="submit"] {
 }
 
 .form-edit-finished button {
-	padding: 4px 8px;
+	padding: 6px 12px;
 	width: 70px;
 	cursor: pointer;
 	border-radius: 5px;
-	color: #eaeaea;
-	background-color: #3CB371;
+	background-color: lightgreen;
+	border: 1px solid rgba(0,0,0,.2);
 }
 
 .form-edit-finished button:hover {
-	opacity: .9;
+	opacity: .8;
+	color: rgba(0,0,0,.8);
 }
 
 .edit-finished-button-container {
@@ -285,13 +294,11 @@ aside {
 	background-color: #eee;
 	margin-left: 20px;
 	margin-top: 20px;
-	margin-right: 15px;
 	border-radius: 20px;
 	padding: 15px;
 	width: 300px;
 	align-self: flex-start;
 	font-size: .8rem;
-
 }
 
 .want-watch-container div:last-child {
@@ -355,8 +362,8 @@ aside svg:hover {
 #closeFinishWantwatch {
 	color: white;
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 15px;
+	right: 30px;
 	cursor: pointer;
 }
 
@@ -370,19 +377,60 @@ aside svg:hover {
 	text-align: center;
 }
 
+/*Statistics*/
+.statistics-container {
+	max-width: 350px;
+	background-color: white;
+	padding: 15px;
+	margin-top: 20px;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.title-stats {
+	margin-bottom: 50px;
+	font-size: 1.8rem;
+}
+
+.row {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+}
+
+.row div {
+	width: 50%;
+	padding: 10px;
+}
+
+.row h3 {
+	font-size: 1.5rem;	
+	margin-bottom: 2px;
+	font-weight: normal;
+}
+
+.row h5 {
+	font-size: 1.1rem;
+	color: rgba(0,0,0,.5);
+}
+
+
+
+
+
 
 /*RESPONSIVE BREAKPOINT*/
-
 @media (max-width: 576px) {
 	.container {
 		flex-direction: column;
 		align-items: center;
 	}
 
-	form {
+	form, .statistics-container {
 		margin: auto;
 		margin-top: 20px;
 		max-width: 90%;
+		margin-bottom: 30px;
 	}
 
 	.finished {
@@ -410,5 +458,9 @@ aside svg:hover {
 
 	.form-edit-finished form {
 		max-width: 100%;
+	}
+
+	.rating-container-finished .per-date {
+		font-size: .64rem;
 	}
 }

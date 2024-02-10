@@ -19,38 +19,88 @@
 
 <div class="container">
 	<!-- ADD DATA -->
-	<form action="" id="form">
-		<h3>Add Data</h3>
+	<div class="container-form-statistics">
+		<form action="" id="form">
+			<h3>Add Data</h3>
 
-		<label for="title">Title
-			<input type="text" id="title" name="title" placeholder="The title of documentary">
-		</label>
-		<label for="channel">Channel
-			<input type="text" id="channel" name="channel" placeholder="Documentary's channel">
-		</label>
-		<label for="duration">Duration
-			<input type="text" id="formHours" class="formDuration" maxlength="2"> h
-			<input type="text" id="formMinutes" class="formDuration" maxlength="2"> m
-			<input type="text" id="formSeconds" class="formDuration" maxlength="2"> s
-		</label>
-		<div class="radioButton">
-			<label for="type">
+			<label for="title">Title
+				<input type="text" id="title" name="title" placeholder="The title of documentary">
+			</label>
+			<label for="channel">Channel
+				<input type="text" id="channel" name="channel" placeholder="Documentary's channel">
+			</label>
+			<label for="duration">Duration
+				<input type="text" id="formHours" class="formDuration" maxlength="2"> h
+				<input type="text" id="formMinutes" class="formDuration" maxlength="2"> m
+				<input type="text" id="formSeconds" class="formDuration" maxlength="2"> s
+			</label>
+			<div class="radioButton">
+				<label for="type">
+					<br>
+					<input type="radio" id="wantWatchButton" name="type"> Want to watch
+					<input type="radio" id="finishedButton" name="type"> Finished
+				</label>
+			</div>
+			<div class="ratingContainer">
+				<label for="date">Date Finished
+					<br><input type="date" id="date" name="date">
+				</label>
 				<br>
-				<input type="radio" id="wantWatchButton" name="type"> Want to watch
-				<input type="radio" id="finishedButton" name="type"> Finished
-			</label>
+				<label for="rating">Rating
+					<input type="text" id="rating" name="rating" maxlength="2">
+				</label>
+			</div>
+			<input type="submit" id="submitButton" value="Add Data">
+		</form>
+
+		<!-- Statistics -->
+		<div class="statistics-container">
+			<h3 class="title-stats">Statistics</h3>
+
+			<!-- first row -->
+			<div class="row">
+				<div>
+					<h3>Finished</h3>
+					<h5 class="finished-stats">0</h5>
+				</div>
+				<div>
+					<h3>Watchlist</h3>
+					<h5 class="watchlist-stats">0</h5>
+				</div>
+			</div>
+
+			<!-- second row -->
+			<div class="row">
+				<div>
+					<h3>Total Hours</h3>
+					<h5 class="total-hours-stats">0</h5>
+				</div>
+			</div>
+
+			<!-- third row -->
+			<div class="row">
+				<div>
+					<h3>Highest Rating</h3>
+					<h5 class="highest-rating-stats">0</h5>
+					<h5 class="total-highest-rating">(0)</h5>
+				</div>
+				<div>
+					<h3>Lowest Rating</h3>
+					<h5 class="lowest-rating-stats">0</h5>
+					<h5 class="total-lowest-rating">(0)</h5>
+				</div>
+			</div>
+
+			<!-- fourth row -->
+			<div class="row">
+				<div>
+					<h3>Average Rating</h3>
+					<h5 class="average-rating-stats">0</h5>
+				</div>
+			</div>
+
 		</div>
-		<div class="ratingContainer">
-			<label for="date">Date Finished
-				<br><input type="date" id="date" name="date">
-			</label>
-			<br>
-			<label for="rating">Rating
-				<input type="text" id="rating" name="rating" maxlength="2">
-			</label>
-		</div>
-		<input type="submit" id="submitButton" value="Add Data">
-	</form>
+	</div>
 
 	<!-- FINISHED CONTAINER -->
 	<div class="finished">
@@ -127,7 +177,7 @@
 
 	<!-- WANT TO WATCH -->
 	<aside>
-		<h2>Want to Watch</h2>
+		<h2>Watchlist</h2>
 
 		<div class="want-watch-container">
 			<!-- Awal Per Wantwatch -->
