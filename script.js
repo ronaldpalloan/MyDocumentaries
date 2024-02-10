@@ -353,13 +353,13 @@ cancelFinishWantwatchButton.addEventListener('click', function(e) {
 
 
 function saveData() {
-	localStorage.setItem('latihanDoc', containerAllDocumentary.innerHTML);
-	localStorage.setItem('wantwatchdocumentaries', wantWatchContainer.innerHTML);
+	localStorage.setItem('documentary-finish-data', containerAllDocumentary.innerHTML);
+	localStorage.setItem('documentary-wantwatch-data', wantWatchContainer.innerHTML);
 }
 
 function showData() {
-	containerAllDocumentary.innerHTML = localStorage.getItem('latihanDoc');
-	wantWatchContainer.innerHTML = localStorage.getItem('wantwatchdocumentaries');
+	containerAllDocumentary.innerHTML = localStorage.getItem('documentary-finish-data');
+	wantWatchContainer.innerHTML = localStorage.getItem('documentary-wantwatch-data');
 }
 
 
