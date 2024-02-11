@@ -25,14 +25,17 @@
 
 			<label for="title">Title
 				<input type="text" id="title" name="title" placeholder="The title of documentary">
+				<p id="errorTitle" class="error">Title is required</p>
 			</label>
 			<label for="channel">Channel
 				<input type="text" id="channel" name="channel" placeholder="Documentary's channel">
+				<p id="errorChannel" class="error">Channel is required</p>
 			</label>
 			<label for="duration">Duration
 				<input type="text" id="formHours" class="formDuration" maxlength="2"> h
 				<input type="text" id="formMinutes" class="formDuration" maxlength="2"> m
 				<input type="text" id="formSeconds" class="formDuration" maxlength="2"> s
+				<p id="errorDuration" class="error">Write them correctly (format 00h 00m 00s)</p>
 			</label>
 			<div class="radioButton">
 				<label for="type">
@@ -43,11 +46,12 @@
 			</div>
 			<div class="ratingContainer">
 				<label for="date">Date Finished
-					<br><input type="date" id="date" name="date">
+					<br><input type="date" id="date" name="date" max="">
 				</label>
 				<br>
 				<label for="rating">Rating
 					<input type="text" id="rating" name="rating" maxlength="2">
+					<p id="errorRating" class="error">Rating is required</p>
 				</label>
 			</div>
 			<input type="submit" id="submitButton" value="Add Data">

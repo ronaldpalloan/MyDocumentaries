@@ -55,22 +55,74 @@ wantWatchButton.addEventListener('change', function() {
 	}
 })
 
-// VALIDASI INPUT DURATION AGAR ANGKA SAJA
-const formTime = [formHours, formMinutes, formSeconds];
+// Validasi Input Title, channel, Rating
+const inputArray = [formTitle, formChannel, formRating];
+let safe = false;
 
-for (i = 0; i < formTime.length; i++) {
-	let item = formTime[i];
+for (i = 0; i < inputArray.length; i++) {
+	let input = inputArray[i];
 
-	item.addEventListener('input', function() {
-		item.value = item.value.replace(/[^0-9]/g, '');
+	input.addEventListener('input', function() {
+		if (input.value === '') {
+			input.classList.add('red-error');
+			input.nextElementSibling.style.display = 'block';
+			safe = false;
+		} else {
+			input.classList.remove('red-error');
+			input.nextElementSibling.style.display = 'none';
+			safe = true;
+		}
+
+		// Cek ada yg kosong
+		const allInputForm = form.querySelectorAll('input');
+		for (everyInput of allInputForm) {
+			if (everyInput.value === '') {
+				safe = false;
+			}
+		}
 	});
+}
+
+// Validasi input duration
+const durationArray = [formHours, formMinutes, formSeconds];
+
+for (i = 0; i < durationArray.length; i++) {
+	let inputDuration = durationArray[i];
+	const parentDuration = inputDuration.parentElement;
+
+	inputDuration.addEventListener('input', function() {
+		// agar angka saja
+		inputDuration.value = inputDuration.value.replace(/[^0-9]/g, '');
+
+		if (inputDuration.value === '' || inputDuration.value.length !== 2) {
+			inputDuration.classList.add('red-error');
+			safe = false;
+		} else {
+			inputDuration.classList.remove('red-error');
+			safe = true;
+		}
+
+		// cek ada yg kosong
+		const allInputForm = form.querySelectorAll('input');
+		for (everyInput of allInputForm) {
+			if (everyInput.value === '') {
+				safe = false;
+			}
+		}
+
+		if (formHours.value !== '' && formMinutes.value !== '' && formSeconds.value !== '' && formHours.value.length === 2 && formMinutes.value.length === 2 && formSeconds.value.length === 2) {
+			parentDuration.querySelector('.error').style.display = 'none';
+		} else {
+			parentDuration.querySelector('.error').style.display = 'block';
+		}
+	})
 }
 
 // ADD DATA
 form.addEventListener('submit', function(e) {
 	e.preventDefault();
 
-	if (finishedButton.checked) {
+	if (finishedButton.checked && safe) {
 		const newDataFinished = document.createElement('div');
 		newDataFinished.classList.add('perDocumentary');
 		const documentaryOrder = containerAllDocumentary.childElementCount;
@@ -106,7 +158,10 @@ form.addEventListener('submit', function(e) {
 
 		updateStats();
 		saveData();
-	} else if (wantWatchButton.checked) {
+		form.reset();
+		formRatingContainer.style.display = 'none';
+		formDate.value = new Date().toISOString().slice(0, 10);
+	} else if (wantWatchButton.checked && safe) {
 		const newWantWatch = document.createElement('div');
 		newWantWatch.classList.add('per-wantwatch');
 
@@ -133,11 +188,23 @@ form.addEventListener('submit', function(e) {
 
 		updateStats();
 		saveData();
+		form.reset();
+		formRatingContainer.style.display = 'none';
+		formDate.value = new Date().toISOString().slice(0, 10);
+	} else {
+		const allInputForm = Array.from(form.querySelectorAll('input'));
+		const emptyInput = allInputForm.filter(a => a.value === '');
+		
+		for (empty of emptyInput) {
+			empty.classList.add('red-error');
+			const parentEmpty = empty.parentElement;
+			parentEmpty.querySelector('.error').style.display = 'block';
+		}
 	}
 
-	form.reset();
-	formRatingContainer.style.display = 'none';
-	formDate.value = new Date().toISOString().slice(0, 10);
+	// form.reset();
+	// formRatingContainer.style.display = 'none';
+	// formDate.value = new Date().toISOString().slice(0, 10);
 });
 
 // EDIT FINISHED DATA

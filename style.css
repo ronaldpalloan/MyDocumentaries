@@ -5,8 +5,6 @@
 	/*border: 1px solid red;*/
 }
 
-/*tes*/
-
 body {
 	background-image: url(images/bg.jpg);
 	font-family: arial;
@@ -97,6 +95,18 @@ input[type="submit"] {
 input[type="submit"]:hover {
 	opacity: .8;
 	color: rgba(0,0,0,.8);
+}
+
+.error {
+	margin-top: -10px;
+	margin-bottom: 9px;
+	font-size: .8rem;
+	color: red;
+	display: none;
+}
+
+.red-error {
+	border: 2px solid red;
 }
 
 /*DOCUMENTARY FINISHED CONTAINER*/
