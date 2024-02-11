@@ -12,6 +12,21 @@ const formRating = document.getElementById('rating');
 const submitButton = document.getElementById('submitButton');
 const containerAllDocumentary = document.querySelector('.containerAllDocumentary');
 const wantWatchContainer = document.querySelector('.want-watch-container');
+// Edit
+const formEditFinished = document.getElementById('formEditFinished')
+const editFinishedTitle = document.getElementById('editFinishedTitle');
+const editFinishedChannel = document.getElementById('editFinishedChannel');
+const editFinishedHours = document.getElementById('editFinishedHours');
+const editFinishedMinutes = document.getElementById('editFinishedMinutes');
+const editFinishedSeconds = document.getElementById('editFinishedSeconds');
+const editFinishedDate = document.getElementById('editFinishedDate');
+const editFinishedRating = document.getElementById('editFinishedRating');
+// Wantwatch
+const titleFinishWantwatch = document.getElementById('titleFinishWantwatch');
+const channelFinishWantwatch = document.getElementById('channelFinishWantwatch');
+const durationFinishWantwatch = document.getElementById('durationFinishWantwatch');
+const dateFinishWantwatch = document.getElementById('dateFinishWantwatch');
+const ratingFinishWantwatch = document.getElementById('ratingFinishWantwatch');
 // Stats
 let finishedStats = document.querySelector('.finished-stats');
 let watchlistStats = document.querySelector('.watchlist-stats');
@@ -56,8 +71,7 @@ wantWatchButton.addEventListener('change', function() {
 })
 
 // Validasi Input Title, channel, Rating
-const inputArray = [formTitle, formChannel, formRating];
-let safe = false;
+const inputArray = [formTitle, formChannel, formRating, editFinishedTitle, editFinishedChannel, editFinishedRating, ratingFinishWantwatch];
 
 for (i = 0; i < inputArray.length; i++) {
 	let input = inputArray[i];
@@ -66,25 +80,15 @@ for (i = 0; i < inputArray.length; i++) {
 		if (input.value === '') {
 			input.classList.add('red-error');
 			input.nextElementSibling.style.display = 'block';
-			safe = false;
 		} else {
 			input.classList.remove('red-error');
 			input.nextElementSibling.style.display = 'none';
-			safe = true;
-		}
-
-		// Cek ada yg kosong
-		const allInputForm = form.querySelectorAll('input');
-		for (everyInput of allInputForm) {
-			if (everyInput.value === '') {
-				safe = false;
-			}
 		}
 	});
 }
 
 // Validasi input duration
-const durationArray = [formHours, formMinutes, formSeconds];
+const durationArray = [formHours, formMinutes, formSeconds, editFinishedHours, editFinishedMinutes, editFinishedSeconds];
 
 for (i = 0; i < durationArray.length; i++) {
 	let inputDuration = durationArray[i];
@@ -96,18 +100,8 @@ for (i = 0; i < durationArray.length; i++) {
 
 		if (inputDuration.value === '' || inputDuration.value.length !== 2) {
 			inputDuration.classList.add('red-error');
-			safe = false;
 		} else {
 			inputDuration.classList.remove('red-error');
-			safe = true;
-		}
-
-		// cek ada yg kosong
-		const allInputForm = form.querySelectorAll('input');
-		for (everyInput of allInputForm) {
-			if (everyInput.value === '') {
-				safe = false;
-			}
 		}
 
 		if (formHours.value !== '' && formMinutes.value !== '' && formSeconds.value !== '' && formHours.value.length === 2 && formMinutes.value.length === 2 && formSeconds.value.length === 2) {
@@ -115,12 +109,37 @@ for (i = 0; i < durationArray.length; i++) {
 		} else {
 			parentDuration.querySelector('.error').style.display = 'block';
 		}
+
+		if (editFinishedHours.value !== '' && editFinishedMinutes.value !== '' && editFinishedSeconds.value !== '' && editFinishedHours.value.length === 2 && editFinishedMinutes.value.length === 2 && editFinishedSeconds.value.length === 2) {
+			const errorDurationEditFinish = document.getElementById('errorDurationEditFinish');
+			errorDurationEditFinish.style.display = 'none';
+		} else {
+			const errorDurationEditFinish = document.getElementById('errorDurationEditFinish')
+			errorDurationEditFinish.style.display = 'block';
+		}
 	})
 }
 
 // ADD DATA
 form.addEventListener('submit', function(e) {
 	e.preventDefault();
+
+	// Validasi safe
+	let safe = false;
+	const allInputForm = Array.from(form.querySelectorAll('input'));
+	const cantContinue = allInputForm.filter(a => {
+		return a.classList.contains('red-error') || a.value === '';
+	});
+	
+	if (cantContinue.length != 0) {
+		safe = false;	
+	} else {
+		safe = true;
+	}
+
+	if (cantContinue.length === 1 && cantContinue[0].id === 'rating' && wantWatchButton.checked) {
+		safe = true;
+	}
 
 	if (finishedButton.checked && safe) {
 		const newDataFinished = document.createElement('div');
@@ -192,7 +211,6 @@ form.addEventListener('submit', function(e) {
 		formRatingContainer.style.display = 'none';
 		formDate.value = new Date().toISOString().slice(0, 10);
 	} else {
-		const allInputForm = Array.from(form.querySelectorAll('input'));
 		const emptyInput = allInputForm.filter(a => a.value === '');
 		
 		for (empty of emptyInput) {
@@ -214,17 +232,9 @@ const formEditContainer = document.querySelector('.form-edit-container');
 window.addEventListener('click', function(e) {
 	if (e.target.classList.contains('edit-finished-button')) {
 		formEditContainer.classList.toggle('display-flex');
-		
+		errorDurationEditFinish.style.display = 'none';
+
 		// Form Edit Otomatis terisi data yang sesuai diklik
-		const editFinishedTitle = document.getElementById('editFinishedTitle');
-		const editFinishedChannel = document.getElementById('editFinishedChannel');
-		const editFinishedHours = document.getElementById('editFinishedHours');
-		const editFinishedMinutes = document.getElementById('editFinishedMinutes');
-		const editFinishedSeconds = document.getElementById('editFinishedSeconds');
-		const editFinishedDate = document.getElementById('editFinishedDate');
-		const editFinishedRating = document.getElementById('editFinishedRating');
-
-
 		const parentFormEdit = e.target.parentElement.parentElement;
 		const formPerTitle = parentFormEdit.querySelector('.per-title').innerText;
 		const formPerChannel = parentFormEdit.querySelector('.per-channel').innerText;
@@ -267,17 +277,41 @@ window.addEventListener('click', function(e) {
 		const submitEditButton = document.getElementById('submitEditButton');
 
 		submitEditButton.addEventListener('click', function(e) {
-			parentFormEdit.querySelector('.per-title').innerText = editFinishedTitle.value;
-			parentFormEdit.querySelector('.per-channel').innerText = editFinishedChannel.value;
-			parentFormEdit.querySelector('.per-duration').innerText = `${editFinishedHours.value}:${editFinishedMinutes.value}:${editFinishedSeconds.value}`;
-			parentFormEdit.querySelector('.per-date').innerText = `(${editFinishedDate.value})`;
-			parentFormEdit.querySelector('.per-rating').innerText = editFinishedRating.value;
-
-			formEditContainer.classList.remove('display-flex');
 			e.preventDefault();
 
-			updateStats();
-			saveData();
+			let safeEdit = false;
+			const allInputFormEditFinished = Array.from(formEditFinished.querySelectorAll('input'));
+			const cantContinueEditFinished = allInputFormEditFinished.filter(a => {
+				return a.classList.contains('red-error') || a.value === '';
+			});
+			
+			if (cantContinueEditFinished.length != 0) {
+				safeEdit = false;
+			} else {
+				safeEdit = true;
+			}
+
+			if (safeEdit) {
+				parentFormEdit.querySelector('.per-title').innerText = editFinishedTitle.value;
+				parentFormEdit.querySelector('.per-channel').innerText = editFinishedChannel.value;
+				parentFormEdit.querySelector('.per-duration').innerText = `${editFinishedHours.value}:${editFinishedMinutes.value}:${editFinishedSeconds.value}`;
+				parentFormEdit.querySelector('.per-date').innerText = `(${editFinishedDate.value})`;
+				parentFormEdit.querySelector('.per-rating').innerText = editFinishedRating.value;
+
+				formEditContainer.classList.remove('display-flex');
+				e.preventDefault();
+
+				updateStats();
+				saveData();
+			} else {
+				const emptyInputEditFinished = allInputFormEditFinished.filter(a => a.value === '');
+		
+				for (empty of emptyInputEditFinished) {
+					empty.classList.add('red-error');
+					const parentEmpty = empty.parentElement;
+					parentEmpty.querySelector('.error').style.display = 'block';
+				}
+			}
 		})
 	}
 })
@@ -325,11 +359,6 @@ window.addEventListener('click', function(e) {
 	if (e.target.classList.contains('finished-wantwatch-button')) {
 		finishWantwatchContainer.style.display = 'flex';
 		// Isi Data sesuai
-		const titleFinishWantwatch = document.getElementById('titleFinishWantwatch');
-		const channelFinishWantwatch = document.getElementById('channelFinishWantwatch');
-		const durationFinishWantwatch = document.getElementById('durationFinishWantwatch');
-		const dateFinishWantwatch = document.getElementById('dateFinishWantwatch');
-		const ratingFinishWantwatch = document.getElementById('ratingFinishWantwatch');
 		const parentWantwatch = e.target.parentElement.parentElement;
 
 		valueTitleWantwatch = parentWantwatch.querySelector('.per-title').innerText;
@@ -363,55 +392,71 @@ window.addEventListener('click', function(e) {
 const finishWantwatchButton = document.getElementById('finishWantwatchButton');
 
 finishWantwatchButton.addEventListener('click', function(e) {
-	const newDataFinished = document.createElement('div');
-	newDataFinished.classList.add('perDocumentary');
-	const documentaryOrder = containerAllDocumentary.childElementCount;
-
-	const perDocumentary = `
-		<p class="per-number">${documentaryOrder + 1}</p>
-		<div class="documentaryInfo">
-			<p class="per-title">${titleFinishWantwatch.value}</p>
-			<p class="per-channel">${channelFinishWantwatch.value}</p>
-			<p class="per-duration">${durationFinishWantwatch.value}</p>
-		</div>
-		<div class="rating-container-finished">
-			<div class="documentaryRating">
-				<img src="images/star.png" alt="">
-				<p class="per-rating">${ratingFinishWantwatch.value}</p>
-			</div>
-			<p class="per-date">(${dateFinishWantwatch.value})</p>
-		</div>
-		<div class="edit-finished">
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left-circle edit-finished-button" viewBox="0 0 16 16">
-			  <title id="edit-title">Edit</title>
-			  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-5.904-2.854a.5.5 0 1 1 .707.708L6.707 9.95h2.768a.5.5 0 1 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.475a.5.5 0 1 1 1 0v2.768z"/>
-			</svg>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-finished-button" viewBox="0 0 16 16">
-			  <title id="delete-title">Remove</title>
-			  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-			  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-			</svg>
-		</div>`;
-
-	newDataFinished.innerHTML = perDocumentary;
-	containerAllDocumentary.insertBefore(newDataFinished, containerAllDocumentary.firstChild);
-
-	finishWantwatchContainer.style.display = 'none';
-
-	// Remove after Finish
-	const allWantwatchTitle = Array.from(document.querySelectorAll('.per-wantwatch .per-title'));
-	for (item of allWantwatchTitle) {
-		if (item.innerText === titleFinishWantwatch.value) {
-			item.parentElement.remove();
-		}
+	e.preventDefault();
+	let safeWantwatch = false;
+	
+	if (ratingFinishWantwatch.value === '') {
+		safeWantwatch = false;
+	} else {
+		safeWantwatch = true;
 	}
 
-	// Agar Rating Reset setelah finish
-	ratingFinishWantwatch.value = '';
+	if (safeWantwatch) {
+		const newDataFinished = document.createElement('div');
+		newDataFinished.classList.add('perDocumentary');
+		const documentaryOrder = containerAllDocumentary.childElementCount;
 
-	updateStats();
-	e.preventDefault();
-	saveData();
+		const perDocumentary = `
+			<p class="per-number">${documentaryOrder + 1}</p>
+			<div class="documentaryInfo">
+				<p class="per-title">${titleFinishWantwatch.value}</p>
+				<p class="per-channel">${channelFinishWantwatch.value}</p>
+				<p class="per-duration">${durationFinishWantwatch.value}</p>
+			</div>
+			<div class="rating-container-finished">
+				<div class="documentaryRating">
+					<img src="images/star.png" alt="">
+					<p class="per-rating">${ratingFinishWantwatch.value}</p>
+				</div>
+				<p class="per-date">(${dateFinishWantwatch.value})</p>
+			</div>
+			<div class="edit-finished">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left-circle edit-finished-button" viewBox="0 0 16 16">
+				  <title id="edit-title">Edit</title>
+				  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-5.904-2.854a.5.5 0 1 1 .707.708L6.707 9.95h2.768a.5.5 0 1 1 0 1H5.5a.5.5 0 0 1-.5-.5V6.475a.5.5 0 1 1 1 0v2.768z"/>
+				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle remove-finished-button" viewBox="0 0 16 16">
+				  <title id="delete-title">Remove</title>
+				  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+				  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+				</svg>
+			</div>`;
+
+		newDataFinished.innerHTML = perDocumentary;
+		containerAllDocumentary.insertBefore(newDataFinished, containerAllDocumentary.firstChild);
+
+		finishWantwatchContainer.style.display = 'none';
+
+		// Remove after Finish
+		const allWantwatchTitle = Array.from(document.querySelectorAll('.per-wantwatch .per-title'));
+		for (item of allWantwatchTitle) {
+			if (item.innerText === titleFinishWantwatch.value) {
+				item.parentElement.remove();
+			}
+		}
+
+		// Agar Rating Reset setelah finish
+		ratingFinishWantwatch.value = '';
+
+		updateStats();
+		e.preventDefault();
+		saveData();
+	} else {
+		ratingFinishWantwatch.classList.add('red-error');
+		const parentEmpty = ratingFinishWantwatch.parentElement;
+		parentEmpty.querySelector('.error').style.display = 'block';
+		
+	}
 });
 
 
