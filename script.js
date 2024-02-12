@@ -219,10 +219,6 @@ form.addEventListener('submit', function(e) {
 			parentEmpty.querySelector('.error').style.display = 'block';
 		}
 	}
-
-	// form.reset();
-	// formRatingContainer.style.display = 'none';
-	// formDate.value = new Date().toISOString().slice(0, 10);
 });
 
 // EDIT FINISHED DATA
@@ -478,7 +474,6 @@ finishWantwatchButton.addEventListener('click', function(e) {
 		ratingFinishWantwatch.classList.add('red-error');
 		const parentEmpty = ratingFinishWantwatch.parentElement;
 		parentEmpty.querySelector('.error').style.display = 'block';
-		
 	}
 });
 
@@ -504,9 +499,7 @@ window.addEventListener('DOMContentLoaded', function() {
 })
 
 
-
-
-// Funnctions
+// Functions
 function updateStats() {
 	// Total Finished dan Watchlist
 	finishedStats.innerText = containerAllDocumentary.childElementCount;
