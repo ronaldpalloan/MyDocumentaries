@@ -229,10 +229,25 @@ form.addEventListener('submit', function(e) {
 // Tombol Edit
 const formEditContainer = document.querySelector('.form-edit-container');
 
+// Variabel ini utk diakses ketika form edit di event submit edit
+let parentFormEditGlobal;
+
 window.addEventListener('click', function(e) {
 	if (e.target.classList.contains('edit-finished-button')) {
 		formEditContainer.classList.toggle('display-flex');
 		errorDurationEditFinish.style.display = 'none';
+
+		// Semua input dalam keadaan netral (no red border, no error message)
+		const allInputFormEditFinished = Array.from(formEditFinished.querySelectorAll('input'));
+		const errorFormEditFinished = formEditFinished.querySelectorAll('.error');
+
+		for (a of allInputFormEditFinished) {
+			a.classList.remove('red-error');
+		}
+
+		for (b of errorFormEditFinished) {
+			b.style.display = 'none';
+		}
 
 		// Form Edit Otomatis terisi data yang sesuai diklik
 		const parentFormEdit = e.target.parentElement.parentElement;
@@ -273,46 +288,48 @@ window.addEventListener('click', function(e) {
 			}
 		})
 
-		// Tombil Submit Edit
-		const submitEditButton = document.getElementById('submitEditButton');
+		// Mencegah terjadinya double atau lebih edit 
+		parentFormEditGlobal = parentFormEdit;
+	}
+})
 
-		submitEditButton.addEventListener('click', function(e) {
-			e.preventDefault();
+// Tombil Submit Edit
+const submitEditButton = document.getElementById('submitEditButton');
 
-			let safeEdit = false;
-			const allInputFormEditFinished = Array.from(formEditFinished.querySelectorAll('input'));
-			const cantContinueEditFinished = allInputFormEditFinished.filter(a => {
-				return a.classList.contains('red-error') || a.value === '';
-			});
-			
-			if (cantContinueEditFinished.length != 0) {
-				safeEdit = false;
-			} else {
-				safeEdit = true;
-			}
+submitEditButton.addEventListener('click', function(e) {
+	e.preventDefault();
+	// Validasi submit
+	let safeEdit = false;
+	const allInputFormEditFinished = Array.from(formEditFinished.querySelectorAll('input'));
+	const cantContinueEditFinished = allInputFormEditFinished.filter(a => {
+		return a.classList.contains('red-error') || a.value === '';
+	});
+	
+	if (cantContinueEditFinished.length != 0) {
+		safeEdit = false;
+	} else {
+		safeEdit = true;
+	}
 
-			if (safeEdit) {
-				parentFormEdit.querySelector('.per-title').innerText = editFinishedTitle.value;
-				parentFormEdit.querySelector('.per-channel').innerText = editFinishedChannel.value;
-				parentFormEdit.querySelector('.per-duration').innerText = `${editFinishedHours.value}:${editFinishedMinutes.value}:${editFinishedSeconds.value}`;
-				parentFormEdit.querySelector('.per-date').innerText = `(${editFinishedDate.value})`;
-				parentFormEdit.querySelector('.per-rating').innerText = editFinishedRating.value;
+	if (safeEdit) {
+		parentFormEditGlobal.querySelector('.per-title').innerText = editFinishedTitle.value;
+		parentFormEditGlobal.querySelector('.per-channel').innerText = editFinishedChannel.value;
+		parentFormEditGlobal.querySelector('.per-duration').innerText = `${editFinishedHours.value}:${editFinishedMinutes.value}:${editFinishedSeconds.value}`;
+		parentFormEditGlobal.querySelector('.per-date').innerText = `(${editFinishedDate.value})`;
+		parentFormEditGlobal.querySelector('.per-rating').innerText = editFinishedRating.value;
 
-				formEditContainer.classList.remove('display-flex');
-				e.preventDefault();
+		formEditContainer.classList.remove('display-flex');
 
-				updateStats();
-				saveData();
-			} else {
-				const emptyInputEditFinished = allInputFormEditFinished.filter(a => a.value === '');
-		
-				for (empty of emptyInputEditFinished) {
-					empty.classList.add('red-error');
-					const parentEmpty = empty.parentElement;
-					parentEmpty.querySelector('.error').style.display = 'block';
-				}
-			}
-		})
+		updateStats();
+		saveData();
+	} else {
+		const emptyInputEditFinished = allInputFormEditFinished.filter(a => a.value === '');
+
+		for (empty of emptyInputEditFinished) {
+			empty.classList.add('red-error');
+			const parentEmpty = empty.parentElement;
+			parentEmpty.querySelector('.error').style.display = 'block';
+		}
 	}
 })
 
@@ -358,6 +375,12 @@ window.addEventListener('click', function(e) {
 	// Tampilkan
 	if (e.target.classList.contains('finished-wantwatch-button')) {
 		finishWantwatchContainer.style.display = 'flex';
+
+		// Kondisi netral input (no error message, no red border)
+		const formFinishWantwatch = document.getElementById('formFinishWantwatch');
+		ratingFinishWantwatch.classList.remove('red-error');
+		formFinishWantwatch.querySelector('.error').style.display = 'none';
+
 		// Isi Data sesuai
 		const parentWantwatch = e.target.parentElement.parentElement;
 
