@@ -514,6 +514,7 @@ aside svg:hover {
 		margin-top: 20px;
 		margin-bottom: 30px;
 		width: 100%;
+		max-width: 100%;
 	}
 
 	.finished {
